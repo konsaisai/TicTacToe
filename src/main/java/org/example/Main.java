@@ -2,10 +2,26 @@ package org.example;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+enum Cell {
+    A, B, Nothing;
+}
+
+enum InNum {
+    row(0),
+    col(0);
+
+    int num; // フィールドの定義
+
+    InNum(int num) { // コンストラクタの定義
+        this.num = num;
+    }
+}
 public class Main {
     public static void main(String[] args) {
-        String[][] board = {
-                {"1", "2", "3"},{"4", "5", "6"},{"7", "8", "9"}
+        Cell[][] board = {
+                {Cell.Nothing, Cell.Nothing, Cell.Nothing},
+                {Cell.Nothing, Cell.Nothing, Cell.Nothing},
+                {Cell.Nothing, Cell.Nothing, Cell.Nothing}
         };
 
         System.out.println("TicTacToe！！");
@@ -13,20 +29,21 @@ public class Main {
 
         //入力を取得してboardに反映する
         for (int b =0 ; b < 9 ; b++) {
-            String type;
+            Cell type;
             if (b % 2 == 0) {
-                type = "彩";
+                type = Cell.A;
             } else {
-                type = "正";
+                type = Cell.B;
             }
-            System.out.println(type + ":Input number ");
+            System.out.println(type + ":Input number (Row Col)");
+            System.out.println(" Ex. 1 1");
             Scanner in = new Scanner(System.in);
             String num = in.nextLine();
-            board = changeBoard(board, num,type);
+            board = changeBoard(board, num, type);
             showBoard(board);
 
             //結果を判定
-            if (checkBoard(board) != "") {
+            if (checkBoard(board) != Cell.Nothing) {
                 System.out.println("Congratulations!!");
                 System.out.println(type + " Win!!");
                 return;
@@ -36,30 +53,50 @@ public class Main {
         System.out.println("Draw");
     }
 
-    public static String[][] changeBoard(String[][] board ,String num ,String type) {
-        //配列を書き換えられないので拡張For文は使用しない
-        Boolean bFound;
-        bFound = false;
-        for (int i = 0; i < board.length; i++){
-            for (int j = 0; j < board[i].length; j++){
-                if (checkString(board[i][j])) {
-                    if (Integer.parseInt(board[i][j]) == Integer.parseInt(num)) {
-                        board[i][j] = type;
-                        bFound = true;
-                        break;
-                    }
-                }
-            }
+//    public  static  String getRowCol(String nums){
+//        InNum inNum = new InNum();
+//        String[] num = nums.split(" ");
+//        System.out.println(num[0] + " " + num[1]);
+//        if (checkString(num[0]) && checkString(num[1])) {
+//            InNum.row = Integer.parseInt(num[0]);
+//            inNum.col = Integer.parseInt(num[1]);
+//        } else {
+//            inNum.row = 0;
+//        }
+//        return  inNum;
+//    }
 
-            if (bFound) {
-                break;
-            }
+    public static Cell[][] changeBoard(Cell[][] board ,String nums ,Cell cell) {
+        String[] num = nums.split(" ");
+
+        if (board[Integer.parseInt(num[0]) - 1][Integer.parseInt(num[1]) - 1] == Cell.Nothing) {
+            board[Integer.parseInt(num[0]) - 1][Integer.parseInt(num[1]) - 1] = cell;
         }
+
+
+
+//        //配列を書き換えられないので拡張For文は使用しない
+//        Boolean bFound = false;
+//        for (int i = 0; i < board.length; i++){
+//            for (int j = 0; j < board[i].length; j++){
+//                if (checkString(board[i][j])) {
+//                    if (Integer.parseInt(board[i][j]) == Integer.parseInt(num)) {
+//                        board[i][j] = type;
+//                        bFound = true;
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            if (bFound) {
+//                break;
+//            }
+//        }
         return  board;
     }
 
-    public static String checkBoard(String[][] board) {
-        String val = "";
+    public static Cell checkBoard(Cell[][] board) {
+        Cell val = Cell.Nothing;
         Boolean bFound = false;
         //縦のチェック
         for (int i = 0; i < board.length; i++){
@@ -87,23 +124,21 @@ public class Main {
         return val;
     }
 
-    public static void showBoard(String[][] board) {
+    public static void showBoard(Cell[][] board) {
         System.out.println("----------");
-        for (String[] row: board) {  //拡張For文
-            for (String x: row) {
-                String val = "";
+        for (Cell[] row: board) {  //拡張For文
+            for (Cell x: row) {
                 switch (x) {
-                    case "彩":
-                        val = "彩";
+                    case A:
+                        System.out.print("|彩");
                         break;
-                    case "正":
-                        val = "正";
+                    case B:
+                        System.out.print("|正");
                         break;
                     default:
-                        val = " " + x;
+                        System.out.print("|　");
                         break;
                 }
-                System.out.print("|" + val);
             }
             System.out.println("|");
         }
