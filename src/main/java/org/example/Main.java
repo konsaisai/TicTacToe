@@ -6,23 +6,9 @@ enum Cell {
     A, B, Nothing;
 }
 
-enum InNum {
-    row(0),
-    col(0);
-
-    int num; // フィールドの定義
-
-    InNum(int num) { // コンストラクタの定義
-        this.num = num;
-    }
-}
 public class Main {
     public static void main(String[] args) {
-        Cell[][] board = {
-                {Cell.Nothing, Cell.Nothing, Cell.Nothing},
-                {Cell.Nothing, Cell.Nothing, Cell.Nothing},
-                {Cell.Nothing, Cell.Nothing, Cell.Nothing}
-        };
+        Cell[][] board = getBoard(3,3);
 
         System.out.println("TicTacToe！！");
         showBoard(board);
@@ -66,6 +52,15 @@ public class Main {
 //        return  inNum;
 //    }
 
+    public static Cell[][] getBoard(int row,int col) {
+        Cell[][] board = new Cell[row][col];
+        for (int i = 0 ; i < row ; i++) {
+            for (int j = 0 ; j < col ; j++) {
+                board[i][j] = Cell.Nothing;
+            }
+        }
+        return board;
+    }
     public static Cell[][] changeBoard(Cell[][] board ,String nums ,Cell cell) {
         String[] num = nums.split(" ");
 
