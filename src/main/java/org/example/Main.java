@@ -8,7 +8,7 @@ enum Cell {
 
 public class Main {
     public static void main(String[] args) {
-        Cell[][] board = getBoard(3,3);
+        Cell[][] board = createBoard(3,3);
 
         System.out.println("TicTacToe！！");
         showBoard(board);
@@ -54,7 +54,7 @@ public class Main {
 //        return  inNum;
 //    }
 
-    public static Cell[][] getBoard(int row,int col) {
+    public static Cell[][] createBoard(int row, int col) {
         Cell[][] board = new Cell[row][col];
         for (int i = 0 ; i < row ; i++) {
             for (int j = 0 ; j < col ; j++) {
