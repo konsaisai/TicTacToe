@@ -25,7 +25,9 @@ public class Main {
             System.out.println(" Ex. 1 1");
             Scanner in = new Scanner(System.in);
             String num = in.nextLine();
-            board = changeBoard(board, num, type);
+
+            String[] nums = num.split(" ");
+            board = changeBoard(board,Integer.parseInt(nums[0]) - 1,Integer.parseInt(nums[1]) - 1, type);
             showBoard(board);
 
             //結果を判定
@@ -61,32 +63,10 @@ public class Main {
         }
         return board;
     }
-    public static Cell[][] changeBoard(Cell[][] board ,String nums ,Cell cell) {
-        String[] num = nums.split(" ");
-
-        if (board[Integer.parseInt(num[0]) - 1][Integer.parseInt(num[1]) - 1] == Cell.Nothing) {
-            board[Integer.parseInt(num[0]) - 1][Integer.parseInt(num[1]) - 1] = cell;
+    public static Cell[][] changeBoard(Cell[][] board ,int row ,int col ,Cell cell) {
+        if (board[row][col] == Cell.Nothing) {
+            board[row][col] = cell;
         }
-
-
-
-//        //配列を書き換えられないので拡張For文は使用しない
-//        Boolean bFound = false;
-//        for (int i = 0; i < board.length; i++){
-//            for (int j = 0; j < board[i].length; j++){
-//                if (checkString(board[i][j])) {
-//                    if (Integer.parseInt(board[i][j]) == Integer.parseInt(num)) {
-//                        board[i][j] = type;
-//                        bFound = true;
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            if (bFound) {
-//                break;
-//            }
-//        }
         return  board;
     }
 
