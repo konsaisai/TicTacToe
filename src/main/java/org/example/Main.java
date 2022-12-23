@@ -27,7 +27,7 @@ public class Main {
             String num = in.nextLine();
 
             String[] nums = num.split(" ");
-            board = changeBoard(board,Integer.parseInt(nums[0]) - 1,Integer.parseInt(nums[1]) - 1, type);
+            changeBoard(board,Integer.parseInt(nums[0]) - 1,Integer.parseInt(nums[1]) - 1, type);
             showBoard(board);
 
             //結果を判定
@@ -41,19 +41,6 @@ public class Main {
         System.out.println("Draw");
     }
 
-//    public  static  String getRowCol(String nums){
-//        InNum inNum = new InNum();
-//        String[] num = nums.split(" ");
-//        System.out.println(num[0] + " " + num[1]);
-//        if (checkString(num[0]) && checkString(num[1])) {
-//            InNum.row = Integer.parseInt(num[0]);
-//            inNum.col = Integer.parseInt(num[1]);
-//        } else {
-//            inNum.row = 0;
-//        }
-//        return  inNum;
-//    }
-
     public static Cell[][] createBoard(int row, int col) {
         Cell[][] board = new Cell[row][col];
         for (int i = 0 ; i < row ; i++) {
@@ -63,11 +50,10 @@ public class Main {
         }
         return board;
     }
-    public static Cell[][] changeBoard(Cell[][] board ,int row ,int col ,Cell cell) {
+    public static void changeBoard(Cell[][] board ,int row ,int col ,Cell cell) {
         if (board[row][col] == Cell.Nothing) {
             board[row][col] = cell;
         }
-        return  board;
     }
 
     public static Cell checkBoard(Cell[][] board) {
