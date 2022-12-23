@@ -21,26 +21,20 @@ public class Main {
             } else {
                 type = Cell.B;
             }
-            System.out.println(type + ":Input number (Row Col)");
-            System.out.println(" Ex. 1 1");
-            Scanner in = new Scanner(System.in);
-            String num = in.nextLine();
 
+            String nums[];
             //入力チェック
-            String[] nums = num.split(" ");
             do {
-                System.out.println("Input Error!!!");
                 System.out.println(type + ":Input number (Row Col)");
                 System.out.println(" Ex. 1 1");
-                in = new Scanner(System.in);
-                num = in.nextLine();
+                Scanner in = new Scanner(System.in);
+                String num = in.nextLine();
                 nums = num.split(" ");
-            }while (checkString((nums[0]), (nums[1])));
+            }while (!checkString((nums[0]), (nums[1])));
+
             //反映
             changeBoard(board,Integer.parseInt(nums[0]) - 1,Integer.parseInt(nums[1]) - 1, type);
             showBoard(board);
-
-
 
             //結果を判定
             if (checkBoard(board) != Cell.Nothing) {
@@ -49,7 +43,6 @@ public class Main {
                 return;
             }
         }
-
         System.out.println("Draw");
     }
 
@@ -93,7 +86,6 @@ public class Main {
             val = board[0][0];
             return val;
         }
-
         return val;
     }
 
@@ -116,27 +108,22 @@ public class Main {
             System.out.println("|");
         }
         System.out.println("----------");
-
     }
 
     // 引数で受け取った文字列が数値かどうか正規表現でチェックするメソッド
     public static boolean checkString(String text1, String text2) {
 
-        try {
-            int i;
-            i = Integer.parseInt(text1);
-            i = Integer.parseInt(text2);
-            Pattern pattern = Pattern.compile("^[0-9]+$|-[0-9]+$");
+            Pattern pattern = Pattern.compile("(1|2|3)");
             boolean res = pattern.matcher(text1).matches();
             if (!res) {
-                return  res;
+                System.out.println("Input Error!!!");
+                return false;
             }
+
             res = pattern.matcher(text2).matches();
+            if (!res) {
+                System.out.println("Input Error!!!");
+            }
             return res;
-        }catch (Exception e){
-            return  false;
-        }
-
     }
-
 }
