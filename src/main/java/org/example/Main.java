@@ -14,7 +14,7 @@ public class Main {
         showBoard(board);
 
         //入力を取得してboardに反映する
-        for (int b =0 ; b < 9 ; b++) {
+        for (int b =0; b < 9; b++) {
             Cell type;
             if (b % 2 == 0) {
                 type = Cell.A;
@@ -43,8 +43,8 @@ public class Main {
 
     public static Cell[][] createBoard(int row, int col) {
         Cell[][] board = new Cell[row][col];
-        for (int i = 0 ; i < row ; i++) {
-            for (int j = 0 ; j < col ; j++) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
                 board[i][j] = Cell.Nothing;
             }
         }
