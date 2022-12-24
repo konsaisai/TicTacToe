@@ -55,7 +55,7 @@ public class Main {
                     position = parsePosition(num);
                 } catch (IllegalArgumentException e) {
                     System.out.println("Input Error!!!" + red);
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                     position = null;
                 }
             }while (position == null);
@@ -96,31 +96,26 @@ public class Main {
     }
 
     public static Cell checkBoard(Cell[][] board) {
-        Cell val = Cell.Nothing;
-        Boolean bFound = false;
         //縦のチェック
-        for (int i = 0; i < board.length; i++){
-            if ((board[i][0] == board[i][1]) && (board[i][0] == board[i][2])) {
-                val = board[i][0];
-                return val;
+        for (Cell[] cells : board) {
+            if ((cells[0] == cells[1]) && (cells[0] == cells[2])) {
+                return cells[0];
             }
         }
 
         //横のチェック
         for (int i = 0; i < board[0].length; i++){
             if ((board[0][i] == board[1][i]) && (board[0][i] == board[2][i])) {
-                val = board[0][i];
-                return val;
+                return board[0][i];
             }
         }
 
         //斜めのチェック
         if (((board[0][0] == board[1][1]) && (board[0][0] == board[2][2])) ||
                 ((board[0][2] == board[1][1]) && (board[0][2] == board[2][0]))) {
-            val = board[0][0];
-            return val;
+            return board[0][0];
         }
-        return val;
+        return Cell.Nothing;
     }
 
     public static void showBoard(Cell[][] board) {
@@ -128,15 +123,9 @@ public class Main {
         for (Cell[] row: board) {  //拡張For文
             for (Cell x: row) {
                 switch (x) {
-                    case A:
-                        System.out.print("|A");
-                        break;
-                    case B:
-                        System.out.print("|B");
-                        break;
-                    default:
-                        System.out.print("|　");
-                        break;
+                    case A -> System.out.print("|A");
+                    case B -> System.out.print("|B");
+                    default -> System.out.print("|　");
                 }
             }
             System.out.println("|");
@@ -146,23 +135,20 @@ public class Main {
 
     // 引数で受け取った文字列が数値かどうか正規表現でチェックするメソッド
     public static Position parsePosition(String input) throws IllegalArgumentException {
-        String red    = "\u001b[00;31m";
-        String nums[] = input.split(" ");
-        if (nums.length != 2) {
+        String[] numbs = input.split(" ");
+        if (numbs.length != 2) {
             throw new IllegalArgumentException ("行と列を半角スペースで区切ってください");
         }
 
-        Pattern pattern = Pattern.compile("(1|2|3)");
-        boolean res = pattern.matcher(nums[0]).matches();
-        if (!res) {
+        Pattern pattern = Pattern.compile("([1-3])");
+        if (!pattern.matcher(numbs[0]).matches()) {
             System.out.println("Input Error!!!");
             throw new IllegalArgumentException("行は１から３で入力してください");
         }
 
-        res = pattern.matcher(nums[1]).matches();
-        if (!res) {
+        if (!pattern.matcher(numbs[1]).matches()) {
             throw new IllegalArgumentException("列は１から３で入力してください");
         }
-        return new Position(Integer.parseInt(nums[0]) - 1, Integer.parseInt(nums[1]) - 1);
+        return new Position(Integer.parseInt(numbs[0]) - 1, Integer.parseInt(numbs[1]) - 1);
     }
 }
