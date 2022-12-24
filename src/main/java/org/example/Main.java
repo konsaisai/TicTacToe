@@ -53,7 +53,7 @@ public class Main {
                 String num = in.nextLine();
                 try {
                     position = parsePosition(num);
-                } catch (Exception e) {
+                } catch (IllegalArgumentException e) {
                     System.out.println("Input Error!!!" + red);
                     System.out.println(e);
                     position = null;
@@ -129,10 +129,10 @@ public class Main {
             for (Cell x: row) {
                 switch (x) {
                     case A:
-                        System.out.print("|彩");
+                        System.out.print("|A");
                         break;
                     case B:
-                        System.out.print("|正");
+                        System.out.print("|B");
                         break;
                     default:
                         System.out.print("|　");
@@ -145,25 +145,24 @@ public class Main {
     }
 
     // 引数で受け取った文字列が数値かどうか正規表現でチェックするメソッド
-    public static Position parsePosition(String input) throws Exception {
+    public static Position parsePosition(String input) throws IllegalArgumentException {
         String red    = "\u001b[00;31m";
         String nums[] = input.split(" ");
         if (nums.length != 2) {
-            throw new Exception("行と列を半角スペースで区切ってください");
+            throw new IllegalArgumentException ("行と列を半角スペースで区切ってください");
         }
 
         Pattern pattern = Pattern.compile("(1|2|3)");
         boolean res = pattern.matcher(nums[0]).matches();
         if (!res) {
             System.out.println("Input Error!!!");
-            throw new Exception("行は１から３で入力してください");
+            throw new IllegalArgumentException("行は１から３で入力してください");
         }
 
         res = pattern.matcher(nums[1]).matches();
-        if (res) {
-            return new Position(Integer.parseInt(nums[0]) - 1, Integer.parseInt(nums[1]) - 1);
-        } else {
-            throw new Exception("列は１から３で入力してください");
+        if (!res) {
+            throw new IllegalArgumentException("列は１から３で入力してください");
         }
+        return new Position(Integer.parseInt(nums[0]) - 1, Integer.parseInt(nums[1]) - 1);
     }
 }
