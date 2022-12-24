@@ -10,18 +10,12 @@ class RowCol {
     int myRow;
     int myCol;
 
-    public void SetRowCol(int row, int col) {
+    public RowCol(int row, int col) {
         myRow = row;
         myCol = col;
     }
-    public void SetRow(int row) {
-        myRow = row -1;
-    }
     public int GetRow() {
         return myRow;
-    }
-    public void SetCol(int col) {
-        myCol = col - 1;
     }
     public int GetCol() {
         return myCol;
@@ -50,19 +44,18 @@ public class Main {
                 type = Cell.B;
             }
 
-            boolean ret;
-            RowCol rowCol = new RowCol();
+            RowCol rowCol;
             //入力チェック
             do {
                 System.out.println(type + ":Input number (Row Col)");
                 System.out.println(" Ex. 1 1");
                 Scanner in = new Scanner(System.in);
                 String num = in.nextLine();
-                ret = checkString(num, rowCol);
-                if (!ret){
+                rowCol = checkString(num);
+                if (rowCol == null){
                     System.out.println("Input Error!!!" + red);
                 }
-            }while (!ret);
+            }while (rowCol == null);
 
             //反映
             if (!changeBoard(board, rowCol.GetRow(), rowCol.GetCol(), type)) {
@@ -149,27 +142,25 @@ public class Main {
     }
 
     // 引数で受け取った文字列が数値かどうか正規表現でチェックするメソッド
-    public static boolean checkString(String input, RowCol rowcol) {
+    public static RowCol checkString(String input) {
         String red    = "\u001b[00;31m";
         String nums[] = input.split(" ");
         if (nums.length != 2) {
-            return false;
+            return null;
         }
 
         Pattern pattern = Pattern.compile("(1|2|3)");
         boolean res = pattern.matcher(nums[0]).matches();
         if (!res) {
             System.out.println("Input Error!!!");
-            return false;
+            return null;
         }
 
         res = pattern.matcher(nums[1]).matches();
         if (res) {
-            rowcol.SetRow(Integer.parseInt(nums[0]));
-            rowcol.SetCol(Integer.parseInt(nums[1]));
-            return true;
+            return new RowCol(Integer.parseInt(nums[0]) - 1, Integer.parseInt(nums[1]) - 1);
         } else {
-            return false;
+            return null;
         }
     }
 }
