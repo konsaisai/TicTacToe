@@ -44,21 +44,21 @@ public class Main {
                 type = Cell.B;
             }
 
-            Position rowCol;
+            Position position;
             //入力チェック
             do {
                 System.out.println(type + ":Input number (Row Col)");
                 System.out.println(" Ex. 1 1");
                 Scanner in = new Scanner(System.in);
                 String num = in.nextLine();
-                rowCol = checkString(num);
-                if (rowCol == null){
+                position = parsePosition(num);
+                if (position == null){
                     System.out.println("Input Error!!!" + red);
                 }
-            }while (rowCol == null);
+            }while (position == null);
 
             //反映
-            if (!changeBoard(board, rowCol, type)) {
+            if (!changeBoard(board, position, type)) {
                 b = b - 1;
                 System.out.println("This cell is already selected!!" + red);
             }
@@ -142,7 +142,7 @@ public class Main {
     }
 
     // 引数で受け取った文字列が数値かどうか正規表現でチェックするメソッド
-    public static Position checkString(String input) {
+    public static Position parsePosition(String input) {
         String red    = "\u001b[00;31m";
         String nums[] = input.split(" ");
         if (nums.length != 2) {
