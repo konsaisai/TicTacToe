@@ -51,9 +51,12 @@ public class Main {
                 System.out.println(" Ex. 1 1");
                 Scanner in = new Scanner(System.in);
                 String num = in.nextLine();
-                position = parsePosition(num);
-                if (position == null){
+                try {
+                    position = parsePosition(num);
+                } catch (Exception e) {
                     System.out.println("Input Error!!!" + red);
+                    System.out.println(e);
+                    position = null;
                 }
             }while (position == null);
 
@@ -142,25 +145,25 @@ public class Main {
     }
 
     // 引数で受け取った文字列が数値かどうか正規表現でチェックするメソッド
-    public static Position parsePosition(String input) {
+    public static Position parsePosition(String input) throws Exception {
         String red    = "\u001b[00;31m";
         String nums[] = input.split(" ");
         if (nums.length != 2) {
-            return null;
+            throw new Exception("行と列を半角スペースで区切ってください");
         }
 
         Pattern pattern = Pattern.compile("(1|2|3)");
         boolean res = pattern.matcher(nums[0]).matches();
         if (!res) {
             System.out.println("Input Error!!!");
-            return null;
+            throw new Exception("行は１から３で入力してください");
         }
 
         res = pattern.matcher(nums[1]).matches();
         if (res) {
             return new Position(Integer.parseInt(nums[0]) - 1, Integer.parseInt(nums[1]) - 1);
         } else {
-            return null;
+            throw new Exception("列は１から３で入力してください");
         }
     }
 }
