@@ -6,18 +6,18 @@ enum Cell {
     A, B, Nothing;
 }
 
-class RowCol {
+class Position {
     int myRow;
     int myCol;
 
-    public RowCol(int row, int col) {
+    public Position(int row, int col) {
         myRow = row;
         myCol = col;
     }
-    public int GetRow() {
+    public int getRow() {
         return myRow;
     }
-    public int GetCol() {
+    public int getCol() {
         return myCol;
     }
 }
@@ -44,7 +44,7 @@ public class Main {
                 type = Cell.B;
             }
 
-            RowCol rowCol;
+            Position rowCol;
             //入力チェック
             do {
                 System.out.println(type + ":Input number (Row Col)");
@@ -58,7 +58,7 @@ public class Main {
             }while (rowCol == null);
 
             //反映
-            if (!changeBoard(board, rowCol.GetRow(), rowCol.GetCol(), type)) {
+            if (!changeBoard(board, rowCol, type)) {
                 b = b - 1;
                 System.out.println("This cell is already selected!!" + red);
             }
@@ -83,9 +83,9 @@ public class Main {
         }
         return board;
     }
-    public static boolean changeBoard(Cell[][] board, int row, int col, Cell cell) {
-        if (board[row][col] == Cell.Nothing) {
-            board[row][col] = cell;
+    public static boolean changeBoard(Cell[][] board, Position position, Cell cell) {
+        if (board[position.getRow()][position.getCol()] == Cell.Nothing) {
+            board[position.getRow()][position.getCol()] = cell;
             return true;
         } {
             return false;
@@ -142,7 +142,7 @@ public class Main {
     }
 
     // 引数で受け取った文字列が数値かどうか正規表現でチェックするメソッド
-    public static RowCol checkString(String input) {
+    public static Position checkString(String input) {
         String red    = "\u001b[00;31m";
         String nums[] = input.split(" ");
         if (nums.length != 2) {
@@ -158,7 +158,7 @@ public class Main {
 
         res = pattern.matcher(nums[1]).matches();
         if (res) {
-            return new RowCol(Integer.parseInt(nums[0]) - 1, Integer.parseInt(nums[1]) - 1);
+            return new Position(Integer.parseInt(nums[0]) - 1, Integer.parseInt(nums[1]) - 1);
         } else {
             return null;
         }
