@@ -6,11 +6,39 @@ enum Cell {
     A, B, Nothing;
 }
 
+class RowCol {
+    int myRow;
+    int myCol;
+
+    public void SetRowCol(int row, int col) {
+        myRow = row;
+        myCol = col;
+    }
+    public void SetRow(int row) {
+        myRow = row -1;
+    }
+    public int GetRow() {
+        return myRow;
+    }
+    public void SetCol(int col) {
+        myCol = col - 1;
+    }
+    public int GetCol() {
+        return myCol;
+    }
+}
 public class Main {
     public static void main(String[] args) {
-        Cell[][] board = createBoard(3,3);
+        String red    = "\u001b[00;31m";
+        String green  = "\u001b[00;32m";
+        String yellow = "\u001b[00;33m";
+        String purple = "\u001b[00;34m";
+        String pink   = "\u001b[00;35m";
+        String cyan   = "\u001b[00;36m";
+        String end    = "\u001b[00m";
 
-        System.out.println("TicTacToe！！");
+        Cell[][] board = createBoard(3,3);
+        System.out.println("TicTacToe！！"+cyan);
         showBoard(board);
 
         //入力を取得してboardに反映する
@@ -22,18 +50,25 @@ public class Main {
                 type = Cell.B;
             }
 
-            String nums[];
+            boolean ret;
+            RowCol rowCol = new RowCol();
             //入力チェック
             do {
                 System.out.println(type + ":Input number (Row Col)");
                 System.out.println(" Ex. 1 1");
                 Scanner in = new Scanner(System.in);
                 String num = in.nextLine();
-                nums = num.split(" ");
-            }while (!checkString((nums[0]), (nums[1])));
+                ret = checkString(num, rowCol);
+                if (!ret){
+                    System.out.println("Input Error!!!" + red);
+                }
+            }while (!ret);
 
             //反映
-            changeBoard(board,Integer.parseInt(nums[0]) - 1,Integer.parseInt(nums[1]) - 1, type);
+            if (!changeBoard(board, rowCol.GetRow(), rowCol.GetCol(), type)) {
+                b = b - 1;
+                System.out.println("This cell is already selected!!" + red);
+            }
             showBoard(board);
 
             //結果を判定
@@ -55,9 +90,12 @@ public class Main {
         }
         return board;
     }
-    public static void changeBoard(Cell[][] board ,int row ,int col ,Cell cell) {
+    public static boolean changeBoard(Cell[][] board, int row, int col, Cell cell) {
         if (board[row][col] == Cell.Nothing) {
             board[row][col] = cell;
+            return true;
+        } {
+            return false;
         }
     }
 
@@ -111,19 +149,27 @@ public class Main {
     }
 
     // 引数で受け取った文字列が数値かどうか正規表現でチェックするメソッド
-    public static boolean checkString(String text1, String text2) {
+    public static boolean checkString(String input, RowCol rowcol) {
+        String red    = "\u001b[00;31m";
+        String nums[] = input.split(" ");
+        if (nums.length != 2) {
+            return false;
+        }
 
-            Pattern pattern = Pattern.compile("(1|2|3)");
-            boolean res = pattern.matcher(text1).matches();
-            if (!res) {
-                System.out.println("Input Error!!!");
-                return false;
-            }
+        Pattern pattern = Pattern.compile("(1|2|3)");
+        boolean res = pattern.matcher(nums[0]).matches();
+        if (!res) {
+            System.out.println("Input Error!!!");
+            return false;
+        }
 
-            res = pattern.matcher(text2).matches();
-            if (!res) {
-                System.out.println("Input Error!!!");
-            }
-            return res;
+        res = pattern.matcher(nums[1]).matches();
+        if (res) {
+            rowcol.SetRow(Integer.parseInt(nums[0]));
+            rowcol.SetCol(Integer.parseInt(nums[1]));
+            return true;
+        } else {
+            return false;
+        }
     }
 }
