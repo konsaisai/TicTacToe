@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 enum Cell {
-    A, B, Nothing;
+    A, B, Nothing
 }
 
 class Position {
@@ -29,7 +29,7 @@ public class Main {
         String cyan   = "\u001b[00;36m";
 
         Board board = new Board(3, 3);
-        System.out.println("TicTacToe！！"+cyan);
+        System.out.println("TicTacToe！！" + cyan);
         board.showBoard();
 
         //入力を取得してboardに反映する

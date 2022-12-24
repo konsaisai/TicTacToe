@@ -36,17 +36,36 @@ class Board {
     }
 
     public Cell checkBoard() {
+        boolean bEnd;
+        Cell val;
         //縦のチェック
         for (Cell[] cells : myBoard) {
-            if ((cells[0] == cells[1]) && (cells[0] == cells[2])) {
-                return cells[0];
+            val = cells[0];
+            bEnd = true;
+            for (Cell type : cells) {
+                if (val != type) {
+                    bEnd = false;
+                    break;
+                }
+            }
+            if (bEnd) {
+                return val;
             }
         }
 
+
         //横のチェック
         for (int i = 0; i < myBoard[0].length; i++) {
-            if ((myBoard[0][i] == myBoard[1][i]) && (myBoard[0][i] == myBoard[2][i])) {
-                return myBoard[0][i];
+            val = myBoard[0][i];
+            bEnd = true;
+            for (Cell[] cells : myBoard) {
+                if (val != cells[i]) {
+                    bEnd = false;
+                    break;
+                }
+            }
+            if (bEnd) {
+                return val;
             }
         }
 
