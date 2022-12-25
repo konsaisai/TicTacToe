@@ -41,62 +41,52 @@ class Board {
     public Cell checkBoard() {
         boolean bEnd;
         Cell val;
-        //縦のチェック
-        for (Cell[] cells : myBoard) {
-            val = cells[0];
-            bEnd = true;
-            for (Cell type : cells) {
-                if (val != type) {
-                    bEnd = false;
-                    break;
+
+        for (int i = 0; i < myBoard.length; i ++) {
+            for (int j = 0; j < myBoard[0].length; j ++){
+
+                //縦のチェック
+                if (checkBoardEx(i - 1, j, 1, 0, 3)) {
+                    return myBoard[i][j];
+                }
+
+                //横のチェック
+                if (checkBoardEx(i, j - 1, 0, 1, 3)) {
+                    return myBoard[i][j];
+                }
+
+                //斜め（右下がり）のチェック
+                if (checkBoardEx(i - 1, j - 1, 1, 1, 3)) {
+                    return myBoard[i][j];
+                }
+
+                //斜め（左下がり）のチェック
+                if (checkBoardEx(i - 1, j + 1, 1, -1, 3)) {
+                    return myBoard[i][j];
                 }
             }
-            if (bEnd) {
-                return val;
-            }
-        }
-
-        //横のチェック
-        for (int i = 0; i < myBoard[0].length - 1; i++) {
-            val = myBoard[0][i];
-            bEnd = true;
-            for (Cell[] cells : myBoard) {
-                if (val != cells[i]) {
-                    bEnd = false;
-                    break;
-                }
-            }
-            if (bEnd) {
-                return val;
-            }
-        }
-
-        //斜めのチェック(右下がり)
-        val = myBoard[0][0];
-        bEnd = true;
-        for (int i = 1; i < myBoard.length; i++) {
-            if (val != myBoard[i][i]) {
-                bEnd = false;
-                break;
-            }
-        }
-        if (bEnd) {
-            return val;
-        }
-
-        //斜めのチェック(左下がり)
-        val = myBoard[(myBoard.length - 1)][0];
-        bEnd = true;
-        for (int i = myBoard.length; i > 0; i--) {
-            if (val != myBoard[(myBoard.length - i)][i]) {
-                bEnd = false;
-                break;
-            }
-        }
-        if (bEnd) {
-            return val;
         }
         return Cell.Nothing;
+    }
+
+    public boolean checkBoardEx(int row, int col, int rowInc, int colInc, int count) {
+        int ckRow = row;
+        int ckCol = col;
+        try {
+            for (int i = 0; i < count - 1; i++) {
+                if (myBoard[row][col] == Cell.Nothing) {
+                    return false;
+                }
+                ckRow = ckRow + rowInc;
+                ckCol = ckCol + colInc;
+                if (myBoard[row][col] != myBoard[ckRow][ckCol]) {
+                    return false;
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return false;
+        }
+        return true;
     }
 
 }
