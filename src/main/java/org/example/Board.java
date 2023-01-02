@@ -66,7 +66,7 @@ class Board {
         int ckRow = row;
         int ckCol = col;
         for (int i = 0; i < count - 1; i++) {
-            if (validateNumber(row) || validateNumber(col)) {
+            if (!isValidPosition(row, col)) {
                 return false;
             }
             if (myBoard[row][col] == Cell.Nothing) {
@@ -74,7 +74,7 @@ class Board {
             }
             ckRow = ckRow + rowInc;
             ckCol = ckCol + colInc;
-            if (validateNumber(ckRow) || validateNumber(ckCol)) {
+            if (!isValidPosition(ckRow, ckCol)) {
                 return false;
             }
             if (myBoard[row][col] != myBoard[ckRow][ckCol]) {
@@ -84,7 +84,7 @@ class Board {
         return true;
     }
 
-    private boolean validateNumber(int num){
-        return 0 > num || num >= myBoard.length;
+    private boolean isValidPosition(int row, int col){
+        return 0 <= row && row < myBoard.length && 0 <= col && col < myBoard.length;
     }
 }
