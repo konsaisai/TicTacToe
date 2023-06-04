@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TicTacToeTest {
 
     @Test
-    void ç() {
+    void parsePositionTest() {
         Position position = parsePosition("1 2", 8);
         assertEquals(0, position.myRow);
         assertEquals(1, position.myCol);
