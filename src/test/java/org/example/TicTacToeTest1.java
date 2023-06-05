@@ -54,4 +54,17 @@ class TicTacToeTest1 {
         System.setOut(standardOut);
     }
 
+    @Test
+    void checkBoardTest() {
+        Board board = new Board(3, 3);
+        board.changeBoard(Main.parsePosition("1 1", 3), Cell.A);
+        board.changeBoard(Main.parsePosition("2 3", 3), Cell.B);
+        board.changeBoard(Main.parsePosition("1 2", 3), Cell.B);
+        board.changeBoard(Main.parsePosition("2 2", 3), Cell.A);
+        assertEquals(board.checkBoard(), Cell.Nothing);
+
+        board.changeBoard(Main.parsePosition("3 3", 3), Cell.A);
+        assertEquals(board.checkBoard(), Cell.A);
+    }
+
 }
