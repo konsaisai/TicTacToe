@@ -56,15 +56,38 @@ class TicTacToeTest1 {
 
     @Test
     void checkBoardTest() {
+        //縦・横・斜めでどこかで３つ揃ったらOK
+        //斜め（右下がり）のチェック
         Board board = new Board(3, 3);
         board.changeBoard(Main.parsePosition("1 1", 3), Cell.A);
-        board.changeBoard(Main.parsePosition("2 3", 3), Cell.B);
-        board.changeBoard(Main.parsePosition("1 2", 3), Cell.B);
         board.changeBoard(Main.parsePosition("2 2", 3), Cell.A);
-        assertEquals(board.checkBoard(), Cell.Nothing);
-
+        assertEquals(Cell.Nothing, board.checkBoard());
         board.changeBoard(Main.parsePosition("3 3", 3), Cell.A);
-        assertEquals(board.checkBoard(), Cell.A);
+        assertEquals(Cell.A, board.checkBoard());
+
+        //斜め（右上がり）のチェック
+        board = new Board(3, 3);
+        assertEquals(Cell.Nothing, board.checkBoard());
+        board.changeBoard(Main.parsePosition("1 3", 3), Cell.A);
+        board.changeBoard(Main.parsePosition("2 2", 3), Cell.A);
+        board.changeBoard(Main.parsePosition("3 1", 3), Cell.A);
+        assertEquals(Cell.A, board.checkBoard());
+
+        //縦のチェック
+        board = new Board(4, 4);
+        board.changeBoard(Main.parsePosition("1 4", 4), Cell.A);
+        board.changeBoard(Main.parsePosition("2 4", 4), Cell.A);
+        assertEquals(Cell.Nothing, board.checkBoard());
+        board.changeBoard(Main.parsePosition("3 4", 4), Cell.A);
+        assertEquals(Cell.A, board.checkBoard());
+
+        //横のチェック
+        board = new Board(4, 4);
+        board.changeBoard(Main.parsePosition("2 1", 4), Cell.A);
+        assertEquals(Cell.Nothing, board.checkBoard());
+        board.changeBoard(Main.parsePosition("2 2", 4), Cell.A);
+        board.changeBoard(Main.parsePosition("2 3", 4), Cell.A);
+        assertEquals(Cell.A, board.checkBoard());
     }
 
 }
