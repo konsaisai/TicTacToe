@@ -2,6 +2,7 @@ package org.example;
 
 class Board {
     Cell[][] myBoard;
+
     public Board(int row, int col){
         Cell[][] board = new Cell[row][col];
         for (int i = 0; i < row; i++) {
@@ -12,9 +13,10 @@ class Board {
         myBoard = board;
     }
 
-    public  int getLength(){
+    public int getLength(){
         return  myBoard.length;
     }
+
     public void showBoard(){
         System.out.println("----------");
         for (Cell[] row: myBoard) {  //拡張For文
