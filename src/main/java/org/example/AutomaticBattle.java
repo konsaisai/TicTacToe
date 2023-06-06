@@ -12,6 +12,7 @@ public class AutomaticBattle implements Opponent{
             for (int j = 0; j < board.getColLength(); j++) {
                 if (board.myBoard[i][j] == Cell.Nothing) {
                     board.changeBoard(new Position(i, j), cell);
+                    return;
                 }
             }
         }

@@ -6,6 +6,7 @@ import static org.example.Main.*;
 public class PlayerBattle implements Opponent{
     @Override
     public void play(Board board, Cell cell) {
+        //TODO: redの定義
         String red    = "\u001b[00;31m";
         Position position;
         //入力チェック

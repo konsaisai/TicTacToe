@@ -26,8 +26,8 @@ class Board {
         for (Cell[] row: myBoard) {  //拡張For文
             for (Cell x: row) {
                 switch (x) {
-                    case A -> System.out.print("|A");
-                    case B -> System.out.print("|B");
+                    case Player1 -> System.out.print("|A");
+                    case Player2 -> System.out.print("|B");
                     default -> System.out.print("| ");
                 }
             }

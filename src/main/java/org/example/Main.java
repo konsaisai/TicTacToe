@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 enum Cell {
-    A, B, Nothing
+    Player1, Player2, Nothing
 }
 
 class Position {
@@ -25,15 +25,14 @@ class Position {
 
 public class Main {
     public static void main(String[] args) {
-        String red    = "\u001b[00;31m";
         String cyan   = "\u001b[00;36m";
         int row = 5;
         int col = 5;
 
         Scanner in = new Scanner(System.in);
         Opponent op;
+        PlayerBattle player = new PlayerBattle();
 
-        //Board board = new Board(3, 3);
         Board board = new Board(row, col);
         System.out.println("TicTacToe！！" + cyan);
 
@@ -52,40 +51,19 @@ public class Main {
 
         //入力を取得してboardに反映する
         for (int b =0; b < (row * col); b++) {
-            Cell type;
             if (b % 2 == 0) {
-                type = Cell.A;
+                player.play(board, Cell.Player1);
             } else {
-                type = Cell.B;
+                op.play(board, Cell.Player2);
             }
 
-            Position position;
-            //入力チェック
-            do {
-                System.out.println(type + ":Input number (Row Col)");
-                System.out.println(" Ex. 1 1");
-                //Scanner in = new Scanner(System.in);
-                String num = in.nextLine();
-                try {
-                    position = parsePosition(num, board.getRowLength());
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Input Error!!!" + red);
-                    System.out.println(e.getMessage());
-                    position = null;
-                }
-            }while (position == null);
-
-            //反映
-            if (!board.changeBoard(position, type)) {
-                b = b - 1;
-                System.out.println("This cell is already selected!!" + red);
-            }
             board.showBoard();
 
             //結果を判定
-            if (board.checkBoard() != Cell.Nothing) {
+            Cell winner = board.checkBoard();
+            if (winner != Cell.Nothing) {
                 System.out.println("Congratulations!!");
-                System.out.println(type + " Win!!");
+                System.out.println(winner + " Win!!");
                 return;
             }
         }
