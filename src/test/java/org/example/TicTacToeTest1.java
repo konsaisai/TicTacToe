@@ -22,9 +22,15 @@ class TicTacToeTest1 {
     }
 
     @Test
-    void getLengthTest() {
+    void getRowLengthTest() {
         Board board = new Board(3, 3);
-        assertEquals(3, board.getLength());
+        assertEquals(3, board.getRowLength());
+    }
+
+    @Test
+    void getColLengthTest() {
+        Board board = new Board(3, 4);
+        assertEquals(4, board.getColLength());
     }
 
     @Test
@@ -43,15 +49,22 @@ class TicTacToeTest1 {
 
         board.showBoard();
         // 期待する出力を定義
-        String expectedOutput = "----------\r\n" +
-                "|A|B| |\r\n" +
-                "| |B|A|\r\n" +
-                "| | | |\r\n" +
-                "----------\r\n";
+        StringBuilder expectedOutput = new StringBuilder();
+        //String lineFeedCode = "\r\n";
+        String lineFeedCode = "\n";
+        expectedOutput.append("----------");
+        expectedOutput.append(lineFeedCode);
+        expectedOutput.append("|A|B| |");
+        expectedOutput.append(lineFeedCode);
+        expectedOutput.append("| |B|A|");
+        expectedOutput.append(lineFeedCode);
+        expectedOutput.append("| | | |");
+        expectedOutput.append(lineFeedCode);
+        expectedOutput.append("----------");
+        expectedOutput.append(lineFeedCode);
 
         // 期待する出力と実際の出力を比較
-        assertEquals(expectedOutput, outputStreamCaptor.toString());
-        System.setOut(standardOut);
+        assertEquals(new String(expectedOutput), outputStreamCaptor.toString());
     }
 
     @Test
@@ -88,6 +101,14 @@ class TicTacToeTest1 {
         board.changeBoard(Main.parsePosition("2 2", 4), Cell.A);
         board.changeBoard(Main.parsePosition("2 3", 4), Cell.A);
         assertEquals(Cell.A, board.checkBoard());
+    }
+
+    @Test
+    void getNextStepTest() {
+        Board board = new Board(3, 3);
+        board.changeBoard(Main.parsePosition("2 1", 3), Cell.A);
+        board.getNextStep(board, Cell.B);
+        assertEquals(Cell.B, board.myBoard[0][0]);
     }
 
 }
