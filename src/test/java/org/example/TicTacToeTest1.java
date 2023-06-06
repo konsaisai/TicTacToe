@@ -2,7 +2,9 @@ package org.example;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.example.Main.*;
@@ -104,11 +106,28 @@ class TicTacToeTest1 {
     }
 
     @Test
-    void getNextStepTest() {
+    void automaticPlayTest() {
         Board board = new Board(3, 3);
         board.changeBoard(Main.parsePosition("2 1", 3), Cell.A);
-        board.getNextStep(board, Cell.B);
+
+        Opponent op = new AutomaticBattle();
+        op.play(board, Cell.B);
         assertEquals(Cell.B, board.myBoard[0][0]);
+        board.changeBoard(Main.parsePosition("1 2", 3), Cell.A);
+        op.play(board, Cell.B);
+        assertEquals(Cell.B, board.myBoard[0][2]);
     }
 
+    @Test
+    void playerBattleTest() {
+        Board board = new Board(3, 3);
+        //インプットを設定
+        String input = "3 1";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        //メソッドを呼び出す
+        Opponent op = new PlayerBattle();
+        op.play(board, Cell.A);
+        assertEquals(Cell.A, board.myBoard[2][0]);
+    }
 }

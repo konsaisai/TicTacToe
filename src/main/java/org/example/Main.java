@@ -52,7 +52,7 @@ public class Main {
                 Scanner in = new Scanner(System.in);
                 String num = in.nextLine();
                 try {
-                    position = parsePosition(num, board.getLength());
+                    position = parsePosition(num, board.getRowLength());
                 } catch (IllegalArgumentException e) {
                     System.out.println("Input Error!!!" + red);
                     System.out.println(e.getMessage());
