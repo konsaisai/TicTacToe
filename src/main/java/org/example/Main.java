@@ -30,9 +30,24 @@ public class Main {
         int row = 5;
         int col = 5;
 
+        Scanner in = new Scanner(System.in);
+        Opponent op;
+
         //Board board = new Board(3, 3);
         Board board = new Board(row, col);
         System.out.println("TicTacToe！！" + cyan);
+
+        //対人戦もしくはコンピュータ戦を選択
+        System.out.println("Do you play computer games?(y/n)");
+        String answer = in.nextLine();
+        if (answer.contains("y")) {
+            op = new AutomaticBattle();
+            System.out.println("Start AutomaticBattle.");
+        } else {
+            op = new PlayerBattle();
+            System.out.println("Start PlayerBattle.");
+        }
+
         board.showBoard();
 
         //入力を取得してboardに反映する
@@ -49,7 +64,7 @@ public class Main {
             do {
                 System.out.println(type + ":Input number (Row Col)");
                 System.out.println(" Ex. 1 1");
-                Scanner in = new Scanner(System.in);
+                //Scanner in = new Scanner(System.in);
                 String num = in.nextLine();
                 try {
                     position = parsePosition(num, board.getRowLength());
