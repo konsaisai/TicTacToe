@@ -1,8 +1,8 @@
 package org.example;
 
-public class AutomaticBattle implements Opponent{
+public class CPUPlayer implements Player {
     @Override
-    public void play(Board board, Cell cell) {
+    public void getPosition(Board board, Cell cell) {
         getNextStep(board, cell);
     }
 

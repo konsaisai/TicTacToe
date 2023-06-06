@@ -30,8 +30,8 @@ public class Main {
         int col = 5;
 
         Scanner in = new Scanner(System.in);
-        Opponent op;
-        PlayerBattle player = new PlayerBattle();
+        Player op;
+        HumanPlayer player = new HumanPlayer();
 
         Board board = new Board(row, col);
         System.out.println("TicTacToe！！" + cyan);
@@ -40,10 +40,10 @@ public class Main {
         System.out.println("Do you play computer games?(y/n)");
         String answer = in.nextLine();
         if (answer.contains("y")) {
-            op = new AutomaticBattle();
+            op = new CPUPlayer();
             System.out.println("Start AutomaticBattle.");
         } else {
-            op = new PlayerBattle();
+            op = new HumanPlayer();
             System.out.println("Start PlayerBattle.");
         }
 
@@ -52,9 +52,9 @@ public class Main {
         //入力を取得してboardに反映する
         for (int b =0; b < (row * col); b++) {
             if (b % 2 == 0) {
-                player.play(board, Cell.Player1);
+                player.getPosition(board, Cell.Player1);
             } else {
-                op.play(board, Cell.Player2);
+                op.getPosition(board, Cell.Player2);
             }
 
             board.showBoard();

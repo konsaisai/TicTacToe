@@ -3,9 +3,9 @@ package org.example;
 import java.util.Scanner;
 import static org.example.Main.*;
 
-public class PlayerBattle implements Opponent{
+public class HumanPlayer implements Player {
     @Override
-    public void play(Board board, Cell cell) {
+    public void getPosition(Board board, Cell cell) {
         //TODO: redの定義
         String red    = "\u001b[00;31m";
         Position position;
