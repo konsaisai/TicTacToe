@@ -13,8 +13,12 @@ class Board {
         myBoard = board;
     }
 
-    public int getLength(){
+    public int getRowLength(){
         return  myBoard.length;
+    }
+
+    public int getColLength(){
+        return  myBoard[0].length;
     }
 
     public void showBoard(){
@@ -62,6 +66,18 @@ class Board {
             }
         }
         return Cell.Nothing;
+    }
+
+    public void getNextStep(Board board, Cell cell) {
+        //最初に見つかった配置できる場所に配置する
+        for (int i = 0; i < board.getRowLength(); i ++) {
+            for (int j = 0; j < board.getColLength(); j++) {
+                if (board.myBoard[i][j] == Cell.Nothing) {
+                    changeBoard(new Position(i, j), cell);
+                }
+            }
+        }
+
     }
 
     private boolean checkLine(int row, int col, int rowInc, int colInc, int count) {
