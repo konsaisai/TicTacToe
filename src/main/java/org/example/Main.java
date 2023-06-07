@@ -37,6 +37,7 @@ public class Main {
         System.out.println("TicTacToe！！" + cyan);
 
         //対人戦もしくはコンピュータ戦を選択
+        // TODO:引数で受け取りたい
         System.out.println("Do you play computer games?(y/n)");
         String answer = in.nextLine();
         if (answer.contains("y")) {
@@ -60,6 +61,7 @@ public class Main {
             board.showBoard();
 
             //結果を判定
+            //TODO judgeWinnerの中に入れたい
             Cell winner = board.judgeWinner();
             if (winner != Cell.Nothing) {
                 System.out.println("Congratulations!!");
