@@ -1,5 +1,5 @@
 package org.example;
 
 public interface Player {
-    void getPosition(Board board, Cell cell);
+    Position getPosition(Board board, Cell cell);
 }

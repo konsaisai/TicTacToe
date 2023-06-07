@@ -31,6 +31,7 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
         Player op;
+        Position position;
         HumanPlayer player = new HumanPlayer();
 
         Board board = new Board(row, col);
@@ -52,15 +53,18 @@ public class Main {
         //入力を取得してboardに反映する
         for (int b =0; b < (row * col); b++) {
             if (b % 2 == 0) {
-                player.getPosition(board, Cell.Player1);
+                position = op.getPosition(board, Cell.Player1);
+                board.changeBoard(position, Cell.Player1);
             } else {
-                op.getPosition(board, Cell.Player2);
+                position = op.getPosition(board, Cell.Player2);
+                board.changeBoard(position, Cell.Player2);
             }
+
 
             board.showBoard();
 
             //結果を判定
-            Cell winner = board.checkBoard();
+            Cell winner = board.judgeWinner();
             if (winner != Cell.Nothing) {
                 System.out.println("Congratulations!!");
                 System.out.println(winner + " Win!!");

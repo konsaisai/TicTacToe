@@ -5,8 +5,7 @@ import static org.example.Main.*;
 
 public class HumanPlayer implements Player {
     @Override
-    public void getPosition(Board board, Cell cell) {
-        //TODO: redの定義
+    public Position getPosition(Board board, Cell cell) {
         String red    = "\u001b[00;31m";
         Position position;
         //入力チェック
@@ -17,6 +16,10 @@ public class HumanPlayer implements Player {
             String num = in.nextLine();
             try {
                 position = parsePosition(num, board.getRowLength());
+                if (!board.positionCheck(position)) {
+                    position = null;
+                    System.out.println("This cell is already selected!!" + red);
+                }
             } catch (IllegalArgumentException e) {
                 System.out.println("Input Error!!!" + red);
                 System.out.println(e.getMessage());
@@ -25,8 +28,6 @@ public class HumanPlayer implements Player {
         }while (position == null);
 
         //反映
-        if (!board.changeBoard(position, cell)) {
-            System.out.println("This cell is already selected!!" + red);
-        }
+        return position;
     }
 }

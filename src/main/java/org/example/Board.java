@@ -37,30 +37,34 @@ class Board {
     }
 
     public boolean changeBoard(Position position, Cell cell) {
-        if (myBoard[position.getRow()][position.getCol()] == Cell.Nothing) {
+        if (positionCheck(position)) {
             myBoard[position.getRow()][position.getCol()] = cell;
             return true;
         }
         return false;
     }
 
-    public Cell checkBoard() {
+    public boolean positionCheck(Position position) {
+        return (myBoard[position.getRow()][position.getCol()] == Cell.Nothing);
+    }
+
+    public Cell judgeWinner() {
         for (int i = 0; i < myBoard.length; i ++) {
             for (int j = 0; j < myBoard[0].length; j ++){
                 //縦のチェック
-                if (judgeWinner(i, j, 1, 0, 3)) {
+                if (winnerCheck(i, j, 1, 0, 3)) {
                     return myBoard[i][j];
                 }
                 //横のチェック
-                if (judgeWinner(i, j, 0, 1, 3)) {
+                if (winnerCheck(i, j, 0, 1, 3)) {
                     return myBoard[i][j];
                 }
                 //斜め（右下がり）のチェック
-                if (judgeWinner(i, j, 1, 1, 3)) {
+                if (winnerCheck(i, j, 1, 1, 3)) {
                     return myBoard[i][j];
                 }
                 //斜め（左下がり）のチェック
-                if (judgeWinner(i, j, 1, -1, 3)) {
+                if (winnerCheck(i, j, 1, -1, 3)) {
                     return myBoard[i][j];
                 }
             }
@@ -69,7 +73,7 @@ class Board {
     }
 
 
-    private boolean judgeWinner(int row, int col, int rowInc, int colInc, int count) {
+    private boolean winnerCheck(int row, int col, int rowInc, int colInc, int count) {
         int ckRow = row;
         int ckCol = col;
         for (int i = 0; i < count - 1; i++) {
