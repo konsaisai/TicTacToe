@@ -48,6 +48,16 @@ class Board {
         return (myBoard[position.getRow()][position.getCol()] == Cell.Nothing);
     }
 
+    public boolean isGameOver() {
+        Cell winner = judgeWinner();
+        if (winner != Cell.Nothing) {
+            System.out.println("Congratulations!!");
+            System.out.println(winner + " Win!!");
+            return true;
+        }
+        return false;
+    }
+
     public Cell judgeWinner() {
         for (int i = 0; i < myBoard.length; i ++) {
             for (int j = 0; j < myBoard[0].length; j ++){

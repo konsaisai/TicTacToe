@@ -61,11 +61,7 @@ public class Main {
             board.showBoard();
 
             //結果を判定
-            //TODO judgeWinnerの中に入れたい
-            Cell winner = board.judgeWinner();
-            if (winner != Cell.Nothing) {
-                System.out.println("Congratulations!!");
-                System.out.println(winner + " Win!!");
+            if (board.isGameOver()) {
                 return;
             }
         }
