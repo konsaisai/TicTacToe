@@ -119,8 +119,7 @@ class TicTacToeTest1 {
         board.changeBoard(position, Cell.Player2);
         assertEquals(Cell.Player2, board.myBoard[0][0]);
         board.changeBoard(Main.parsePosition("1 2", 3), Cell.Player1);
-        position = op.getPosition(board, Cell.Player2);
-        board.changeBoard(position, Cell.Player2);
+        op.play(board, Cell.Player2);
         assertEquals(Cell.Player2, board.myBoard[0][2]);
     }
 
@@ -133,8 +132,7 @@ class TicTacToeTest1 {
         System.setIn(in);
         //メソッドを呼び出す
         Player op = new HumanPlayer();
-        Position position = op.getPosition(board, Cell.Player1);
-        board.changeBoard(position, Cell.Player1);
+        op.play(board, Cell.Player1);
         assertEquals(Cell.Player1, board.myBoard[2][0]);
     }
 }
