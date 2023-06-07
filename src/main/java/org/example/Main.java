@@ -53,7 +53,7 @@ public class Main {
         //入力を取得してboardに反映する
         for (int b =0; b < (row * col); b++) {
             if (b % 2 == 0) {
-                position = op.getPosition(board, Cell.Player1);
+                position = player.getPosition(board, Cell.Player1);
                 board.changeBoard(position, Cell.Player1);
             } else {
                 position = op.getPosition(board, Cell.Player2);
