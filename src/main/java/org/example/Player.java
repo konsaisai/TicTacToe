@@ -9,6 +9,7 @@ public interface Player {
         if (position.isPresent()) {
             board.changeBoard(position.get(), cell);
         } else {
+            System.out.println(cell + " is skip");
         }
     }
 }
