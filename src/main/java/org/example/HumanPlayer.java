@@ -1,11 +1,12 @@
 package org.example;
 
+import java.util.Optional;
 import java.util.Scanner;
 import static org.example.Main.*;
 
 public class HumanPlayer implements Player {
     @Override
-    public Position getPosition(Board board, Cell cell) {
+    public Optional<Position> getPosition(Board board, Cell cell) {
         String red    = "\u001b[00;31m";
         Position position;
         //入力チェック
@@ -28,6 +29,6 @@ public class HumanPlayer implements Player {
         }while (position == null);
 
         //反映
-        return position;
+        return Optional.ofNullable(position);
     }
 }

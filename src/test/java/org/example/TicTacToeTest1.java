@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Optional;
 
 import static org.example.Main.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -115,8 +116,8 @@ class TicTacToeTest1 {
         board.changeBoard(Main.parsePosition("2 1", 3), Cell.Player1);
 
         Player op = new CPUPlayer();
-        Position position = op.getPosition(board, Cell.Player2);
-        board.changeBoard(position, Cell.Player2);
+        Optional<Position> position = op.getPosition(board, Cell.Player2);
+        board.changeBoard(position.get(), Cell.Player2);
         assertEquals(Cell.Player2, board.myBoard[0][0]);
         board.changeBoard(Main.parsePosition("1 2", 3), Cell.Player1);
         op.play(board, Cell.Player2);

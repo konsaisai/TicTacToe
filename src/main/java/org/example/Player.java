@@ -1,9 +1,14 @@
 package org.example;
 
+import java.util.Optional;
+
 public interface Player {
-    Position getPosition(Board board, Cell cell);
+    Optional<Position> getPosition(Board board, Cell cell);
     default void play(Board board, Cell cell) {
-        Position position = getPosition(board, cell);
-        board.changeBoard(position, cell);
+        Optional<Position> position = getPosition(board, cell);
+        if (position.isPresent()) {
+            board.changeBoard(position.get(), cell);
+        } else {
+        }
     }
 }
