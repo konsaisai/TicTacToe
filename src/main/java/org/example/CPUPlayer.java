@@ -3,6 +3,10 @@ package org.example;
 import java.util.Optional;
 
 public class CPUPlayer implements Player {
+
+    CPUPlayer() {
+        System.out.println("Start AutomaticBattle.");
+    }
     @Override
     public Optional<Position> getPosition(Board board, Cell cell) {
         return getNextStep(board, cell);

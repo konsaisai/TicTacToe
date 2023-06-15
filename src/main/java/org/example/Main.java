@@ -37,15 +37,18 @@ public class Main {
         System.out.println("TicTacToe！！" + cyan);
 
         //対人戦もしくはコンピュータ戦を選択
-        // TODO:引数で受け取りたい
-        System.out.println("Do you play computer games?(y/n)");
-        String answer = in.nextLine();
-        if (answer.contains("y")) {
+        if (args[0].contains("C")) {
             op = new CPUPlayer();
-            System.out.println("Start AutomaticBattle.");
-        } else {
+        } else if (args[0].contains("H")) {
             op = new HumanPlayer();
-            System.out.println("Start PlayerBattle.");
+        } else {
+            System.out.println("Do you play computer games?(y/n)");
+            String answer = in.nextLine();
+            if (answer.contains("y")) {
+                op = new CPUPlayer();
+            } else {
+                op = new HumanPlayer();
+            }
         }
 
         board.showBoard();
@@ -87,5 +90,9 @@ public class Main {
             throw new IllegalArgumentException("行は1から" + len + "で入力してください");
         }
         return new Position(Integer.parseInt(numbs[0]) - 1, Integer.parseInt(numbs[1]) - 1);
+    }
+
+    public String getPlayerType() {
+        return "";
     }
 }

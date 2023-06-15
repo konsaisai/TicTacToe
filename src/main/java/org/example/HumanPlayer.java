@@ -5,6 +5,10 @@ import java.util.Scanner;
 import static org.example.Main.*;
 
 public class HumanPlayer implements Player {
+
+    HumanPlayer() {
+        System.out.println("Start PlayerBattle.");
+    }
     @Override
     public Optional<Position> getPosition(Board board, Cell cell) {
         String red    = "\u001b[00;31m";
