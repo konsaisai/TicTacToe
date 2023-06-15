@@ -29,27 +29,11 @@ public class Main {
         int row = 5;
         int col = 5;
 
-        Scanner in = new Scanner(System.in);
-        Player op;
-        HumanPlayer player = new HumanPlayer();
-
         Board board = new Board(row, col);
         System.out.println("TicTacToe！！" + cyan);
 
-        //対人戦もしくはコンピュータ戦を選択
-        if (args[0].contains("C")) {
-            op = new CPUPlayer();
-        } else if (args[0].contains("H")) {
-            op = new HumanPlayer();
-        } else {
-            System.out.println("Do you play computer games?(y/n)");
-            String answer = in.nextLine();
-            if (answer.contains("y")) {
-                op = new CPUPlayer();
-            } else {
-                op = new HumanPlayer();
-            }
-        }
+        HumanPlayer player = new HumanPlayer();
+        Player op = player.decideOpponent(args[0]);
 
         board.showBoard();
 

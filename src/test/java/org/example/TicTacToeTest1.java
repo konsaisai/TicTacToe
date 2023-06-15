@@ -137,15 +137,11 @@ class TicTacToeTest1 {
         assertEquals(Cell.Player1, board.myBoard[2][0]);
     }
 
-//    @Test
-//    //どうやってテストすればいい？
-//    public void MainWithArgumentsTest() {
-//        // テストする引数
-//        String[] args = { "CPU" };
-//        // Mainクラスのインスタンス化
-//        Main main = new Main();
-//        // テスト対象のメソッド呼び出し
-//        main.main(args);
-//        assertEquals("CPU", main.getPlayerType());
-//    }
+    @Test
+    public void decideOpponentTest() {
+        Player player = new HumanPlayer();
+        assertEquals(CPUPlayer.class, player.decideOpponent("C").getClass());
+        assertEquals(HumanPlayer.class, player.decideOpponent("H").getClass());
+
+    }
 }
